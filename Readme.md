@@ -2,7 +2,7 @@
 
 A simple shared tool for International Fellowship (IF) to track maintenance and damage reports across its houses (the girls' house, the guys' house, and any others the organization runs).
 
-Anyone with the link — roommates, house managers, or maintenance — can open the page, log something that's broken or needs fixing, and see the same live, shared list update in real time. No login required.
+Anyone with the link roommates, house managers, or maintenance can open the page, log something that's broken or needs fixing, and see the same live, shared list update in real time. No login required.
 
 **Live page:** `ggirishya.github.io/damage_log/damage.html`
 
@@ -15,7 +15,7 @@ Anyone with the link — roommates, house managers, or maintenance — can open 
 
 ## How it works
 
-This is a single static web page (`damage.html`) with no server of its own. The shared, real-time list is powered by a free Firebase (Firestore) database — that's what lets multiple people see and update the same list from different devices.
+This is a single static web page (`damage.html`) with no server of its own. The shared, real-time list is powered by a free Firebase (Firestore) database, that's what lets multiple people see and update the same list from different devices.
 
 Files in this repo:
 
@@ -33,4 +33,4 @@ Each house could either share this one log (fine for a small org) or get its own
 
 ## A note on the Firebase key
 
-`firebase-config.js` contains a public Firebase API key. This is normal for this kind of app — it identifies the project, it's not a password — and access to the actual data is controlled separately by the Firestore rules, not by hiding this file. Anyone with the key can only do what those rules allow (currently: read and write damage reports, nothing else).
+`firebase-config.js` contains a public Firebase API key. This is normal for this kind of app, it identifies the project, it's not a password, and access to the actual data is controlled separately by the Firestore rules, not by hiding this file. Anyone with the key can only do what those rules allow (currently: read and write damage reports, nothing else).
