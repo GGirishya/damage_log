@@ -195,12 +195,15 @@
   Firestore database live, rules published allowing read/write on the
   "damages" collection).
 
-  All that's left: push this file (as index.html) to a GitHub repo, then
-  turn it on in that repo's Settings > Pages > Deploy from branch.
+  The connection details live in a separate file, firebase-config.js,
+  sitting next to this one — keep both files together when you deploy.
+
+  All that's left: push both files to a GitHub repo, then turn it on in
+  that repo's Settings > Pages > Deploy from branch.
 -->
 
 <div class="setup-notice" id="setup-notice" hidden>
-  <strong>Almost set up:</strong> paste your Firebase project config into the <code>firebaseConfig</code> object near the top of this file's script, then reload. See the comment at the top of the HTML source for full steps.
+  <strong>Almost set up:</strong> make sure <code>firebase-config.js</code> is sitting in the same folder as this file, then reload.
 </div>
 
 <header>
@@ -270,19 +273,12 @@
 <!-- Firebase (free tier) — provides the shared, real-time database -->
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 
 <script>
 (function(){
-  // ---- 1. FIREBASE CONFIG (roommates-damage-log project) ----
-  var firebaseConfig = {
-    apiKey: "AIzaSyDfbB2gcLFo2am0uaxFibhNsyFcerDjgzs",
-    authDomain: "roommates-damage-log.firebaseapp.com",
-    projectId: "roommates-damage-log",
-    storageBucket: "roommates-damage-log.firebasestorage.app",
-    messagingSenderId: "1010520091633",
-    appId: "1:1010520091633:web:67aa67b0299e534c527250"
-  };
-  // ---------------------------------------------
+  // Config now lives in firebase-config.js (loaded above) as window.FIREBASE_CONFIG
+  var firebaseConfig = window.FIREBASE_CONFIG || null;
 
   var entriesEl = document.getElementById('entries');
   var emptyEl = document.getElementById('empty-state');
@@ -427,9 +423,9 @@
   function init(){
     render();
 
-    if(!firebaseConfig || firebaseConfig === "FIREBASE_CONFIG_PLACEHOLDER"){
+    if(!firebaseConfig){
       setupNotice.hidden = false;
-      banner.textContent = 'Not set up yet — see the notice above.';
+      banner.textContent = 'Not set up yet — firebase-config.js is missing or failed to load.';
       banner.classList.add('error');
       submitBtn.disabled = true;
       return;
